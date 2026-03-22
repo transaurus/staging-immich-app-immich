@@ -1,0 +1,10 @@
+# Build artifacts
+
+# Test cache and generated files
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE-specific files
+.vscode/

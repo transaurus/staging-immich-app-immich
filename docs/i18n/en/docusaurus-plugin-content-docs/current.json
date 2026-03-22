@@ -1,0 +1,30 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Overview": {
+    "message": "Overview",
+    "description": "The label for category 'Overview' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Install": {
+    "message": "Install",
+    "description": "The label for category 'Install' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Features": {
+    "message": "Features",
+    "description": "The label for category 'Features' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Administration": {
+    "message": "Administration",
+    "description": "The label for category 'Administration' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Developer": {
+    "message": "Developer",
+    "description": "The label for category 'Developer' in sidebar 'tutorialSidebar'"
+  },
+  "sidebar.tutorialSidebar.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category 'Guides' in sidebar 'tutorialSidebar'"
+  }
+}
