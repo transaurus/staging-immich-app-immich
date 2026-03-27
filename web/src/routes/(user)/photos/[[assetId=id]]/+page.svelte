@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { beforeNavigate } from '$app/navigation';
   import ActionMenuItem from '$lib/components/ActionMenuItem.svelte';
   import UserPageLayout from '$lib/components/layouts/user-page-layout.svelte';
   import ButtonContextMenu from '$lib/components/shared-components/context-menu/button-context-menu.svelte';
@@ -20,13 +19,12 @@
   import AssetSelectControlBar from '$lib/components/timeline/AssetSelectControlBar.svelte';
   import Timeline from '$lib/components/timeline/Timeline.svelte';
   import { AssetAction } from '$lib/constants';
+  import { assetViewerManager } from '$lib/managers/asset-viewer-manager.svelte';
+  import { memoryManager } from '$lib/managers/memory-manager.svelte';
   import { TimelineManager } from '$lib/managers/timeline-manager/timeline-manager.svelte';
   import { Route } from '$lib/route';
   import { getAssetBulkActions } from '$lib/services/asset.service';
   import { AssetInteraction } from '$lib/stores/asset-interaction.svelte';
-  import { assetViewingStore } from '$lib/stores/asset-viewing.store';
-  import { isFaceEditMode } from '$lib/stores/face-edit.svelte';
-  import { memoryStore } from '$lib/stores/memory.store.svelte';
   import { preferences, user } from '$lib/stores/user.store';
   import { getAssetMediaUrl, memoryLaneTitle } from '$lib/utils';
   import {
@@ -43,7 +41,6 @@
   import { mdiDotsVertical } from '@mdi/js';
   import { t } from 'svelte-i18n';
 
-  let { isViewing: showAssetViewer } = assetViewingStore;
   let timelineManager = $state<TimelineManager>() as TimelineManager;
   const options = { visibility: AssetVisibility.Timeline, withStacked: true, withPartners: true };
 
@@ -62,7 +59,7 @@
   });
 
   const handleEscape = () => {
-    if ($showAssetViewer) {
+    if (assetViewerManager.isViewing) {
       return;
     }
     if (assetInteraction.selectionActive) {
@@ -86,12 +83,8 @@
     assetInteraction.clearMultiselect();
   };
 
-  beforeNavigate(() => {
-    isFaceEditMode.value = false;
-  });
-
   const items = $derived(
-    memoryStore.memories.map((memory) => ({
+    memoryManager.memories.map((memory) => ({
       id: memory.id,
       title: $memoryLaneTitle(memory),
       href: Route.memories({ id: memory.assets[0].id }),
