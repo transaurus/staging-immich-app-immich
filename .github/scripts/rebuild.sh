@@ -50,11 +50,15 @@ cd "$TMP_SOURCE"
 echo "[INFO] Installing documentation workspace dependencies..."
 pnpm install --filter documentation --no-frozen-lockfile
 
-# --- Overlay translated content from staging repo ---
-# Copy i18n files (translated content) from staging into the temp docs dir
-echo "[INFO] Copying translated i18n content from staging..."
+# --- Overlay translated content + config from staging repo ---
+echo "[INFO] Copying translated i18n content and config from staging..."
 if [ -d "$STAGING_DIR/i18n" ]; then
     cp -r "$STAGING_DIR/i18n" "$TMP_SOURCE/docs/"
+fi
+# Copy the i18n-modified docusaurus config (staging has zh-Hans locale added)
+if [ -f "$STAGING_DIR/docusaurus.config.js" ]; then
+    cp "$STAGING_DIR/docusaurus.config.js" "$TMP_SOURCE/docs/docusaurus.config.js"
+    echo "[INFO] Copied modified docusaurus.config.js with zh-Hans locale"
 fi
 
 # --- Build from temp docs dir ---
